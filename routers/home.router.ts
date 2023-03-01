@@ -1,12 +1,8 @@
 import { Router } from "express";
 import { WordRecord } from "../records/words.record";
 
-export const addRouter = Router()
-    .get('/', async (req, res) => {
+export const homeRouter = Router()
 
-        res.send('Witaj na stronie głównej, ewentualnie str logowania navigacja z podstronami')
-
-    })
     .get('/test', async (req, res) => {
 
         res.send('podstrona z testami')
