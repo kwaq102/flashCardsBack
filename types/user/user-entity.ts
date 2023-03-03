@@ -1,6 +1,9 @@
-export interface UserEntity {
-    id?: string;
-    name: string;
+export interface LoginUserEntity {
     email: string;
     password: string;
+}
+
+export interface UserEntity extends LoginUserEntity {
+    id?: string;
+    name: string;
 }

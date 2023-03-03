@@ -2,7 +2,11 @@ import { Router } from "express";
 import { WordRecord } from "../records/words.record";
 
 export const homeRouter = Router()
+    .get('/', async (req, res) => {
 
+        res.send('witaj na strinie głównej')
+
+    })
     .get('/test', async (req, res) => {
 
         res.send('podstrona z testami')
