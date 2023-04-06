@@ -31,7 +31,7 @@ export class WordRecord {
         return results.map(obj => new WordRecord(obj))
     }
 
-    async addWord(): Promise<void> {
+    async addWord(userId: string): Promise<void> {
         const id = uuid();
 
         await pool.execute("INSERT INTO `words`(`id`, `title`, `description`, `notes`, `userId`) VALUES(:id, :title, :description, :notes, :userId)", {
@@ -39,7 +39,7 @@ export class WordRecord {
             title: this.title,
             description: this.description,
             notes: this.notes,
-            userId: this.userId,
+            userId,
         })
     }
 }

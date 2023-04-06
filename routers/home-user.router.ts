@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { WordRecord } from "../records/words.record";
-import { v4 as uuid } from 'uuid'
 
 export const homeRouter = Router()
     .get('/', async (req, res) => {
@@ -19,8 +18,8 @@ export const homeRouter = Router()
     })
 
 
-    .post('/data/add/', async (req, res) => {
-        // const userId = req.params.id;
+    .post('/data/add/:id', async (req, res) => {
+        const userId = req.params.id;
 
         const obj = {
             ...req.body,
@@ -29,7 +28,7 @@ export const homeRouter = Router()
         console.log(obj)
 
         const word = new WordRecord(obj as WordRecord);
-        await word.addWord();
+        await word.addWord(userId);
 
         console.log('dodano')
         res.end();
