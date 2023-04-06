@@ -1,5 +1,7 @@
 import { UserEntity } from "../types/user/user-entity";
 import { pool } from "../utils/db";
+import { v4 as uuid } from 'uuid'
+
 
 export class RegisterRecord implements UserEntity {
     id?: string;
@@ -18,9 +20,10 @@ export class RegisterRecord implements UserEntity {
 
 
     async insertUser(): Promise<void> {
+        const id = uuid();
 
         await pool.execute("INSERT INTO `users` VALUES(:id, :name, :email, :password)", {
-            id: this.id,
+            id,
             name: this.name,
             email: this.email,
             password: this.password,

@@ -11,14 +11,7 @@ export const registerRouter = Router()
         };
 
         const newUser = new RegisterRecord(data);
-
-        console.log(newUser);
-
         await newUser.insertUser();
         res.json(newUser);
+
     })
-    // .get('/', async (req, res) => {
-
-    //     res.send('rejesteracja')
-
-    // })

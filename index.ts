@@ -2,7 +2,7 @@ import express, { json } from 'express';
 
 import cors from 'cors';
 import 'express-async-errors';
-import { homeRouter } from './routers/home.router';
+import { homeRouter } from './routers/home-user.router';
 import { registerRouter } from './routers/register.router';
 import { loginRouter } from './routers/login.router';
 
