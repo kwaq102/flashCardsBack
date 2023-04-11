@@ -31,6 +31,19 @@ export class WordRecord {
         return results.map(obj => new WordRecord(obj))
     }
 
+    static async getOne(id: string): Promise<WordRecord | null> {
+        const [result] = await pool.execute("SELECT * FROM `words` WHERE `id` = :id", {
+            id,
+        }) as WordRecordResult;
+        return result.length === 0 ? null : new WordRecord(result[0]);
+    }
+
+    async delete(): Promise<void> {
+        await pool.execute("DELETE FROM `words` WHERE `id` =:id", {
+            id: this.id,
+        });
+    }
+
     async addWord(userId: string): Promise<void> {
         const id = uuid();
 

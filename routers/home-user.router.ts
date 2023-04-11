@@ -18,6 +18,19 @@ export const homeRouter = Router()
     })
 
 
+
+    .delete('/data/remove/:id', async (req, res) => {
+        const word = await WordRecord.getOne(req.params.id);
+
+        console.log(word);
+
+        await word.delete();
+
+        console.log('usunięto ')
+        res.end();
+
+    })
+
     .post('/data/add/:id', async (req, res) => {
         const userId = req.params.id;
 
