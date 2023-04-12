@@ -3,9 +3,6 @@ import { RegisterRecord } from "../records/register.record";
 
 export const registerRouter = Router()
     .post('/', async (req, res) => {
-        // console.log(...req.body);
-
-        // res.send('strona rejestracji')
         const data = {
             ...req.body,
         };
@@ -13,5 +10,10 @@ export const registerRouter = Router()
         const newUser = new RegisterRecord(data);
         await newUser.insertUser();
         res.json(newUser);
+    })
+    .get('/users', async (req, res) => {
 
+        const userList = await RegisterRecord.listAllUsers();
+        console.log(userList)
+        res.json({ userList })
     })

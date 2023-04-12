@@ -7,9 +7,6 @@ export const loginRouter = Router()
 
         console.log(req.body);
 
-
-        // res.send('strona logowania')
-
     })
     .get('/:id', async (req, res) => {
 

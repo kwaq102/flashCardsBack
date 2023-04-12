@@ -17,8 +17,6 @@ export const homeRouter = Router()
         res.json(wordsList)
     })
 
-
-
     .delete('/data/remove/:id', async (req, res) => {
         const word = await WordRecord.getOne(req.params.id);
 
