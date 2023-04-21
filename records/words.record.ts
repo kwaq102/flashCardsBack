@@ -55,4 +55,14 @@ export class WordRecord {
             userId,
         })
     }
+
+    async update(id: string): Promise<void> {
+        await pool.execute("UPDATE `words` SET `title` = :title, `description` = :description, `notes` = :notes WHERE `id` = :id ", {
+            id,
+            title: this.title,
+            description: this.description,
+            notes: this.notes,
+            // userId
+        })
+    }
 }

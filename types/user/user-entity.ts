@@ -5,5 +5,5 @@ export interface LoginUserEntity {
 
 export interface UserEntity extends LoginUserEntity {
     id?: string;
-    name: string;
+    userName: string | null;
 }

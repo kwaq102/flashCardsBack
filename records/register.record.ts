@@ -9,13 +9,13 @@ type RegisterRecordResult = [RegisterRecord[], FieldPacket[]]
 
 export class RegisterRecord implements UserEntity {
     id?: string;
-    name: string;
+    userName: string;
     email: string;
     password: string;
 
     constructor(userObj: RegisterRecord) {
         this.id = userObj.id;
-        this.name = userObj.name;
+        this.userName = userObj.userName;
         this.email = userObj.email;
         this.password = userObj.password;
     }
@@ -25,7 +25,7 @@ export class RegisterRecord implements UserEntity {
 
         await pool.execute("INSERT INTO `users` VALUES(:id, :name, :email, :password)", {
             id,
-            name: this.name,
+            userName: this.userName,
             email: this.email,
             password: this.password,
         })

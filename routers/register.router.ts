@@ -11,7 +11,7 @@ export const registerRouter = Router()
         const allUsers = await RegisterRecord.listAllUsers();
         const newUser = new RegisterRecord(data);
 
-        if (!newUser.name || newUser.name.length < 3 || newUser.name.length > 99) {
+        if (!newUser.userName || newUser.userName.length < 3 || newUser.userName.length > 99) {
             throw new ValidationError('Nazwa użytkownika powinna skłądać się z co najmniej 3 znaków i maksymalnie z 99.')
         }
         if (
