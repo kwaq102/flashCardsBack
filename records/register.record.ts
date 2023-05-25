@@ -2,10 +2,9 @@ import { FieldPacket } from "mysql2";
 import { UserEntity } from "../types/user/user-entity";
 import { pool } from "../utils/db";
 import { v4 as uuid } from 'uuid'
-import { ValidationError } from "../utils/errors";
+import { hash } from 'bcrypt';
 
 type RegisterRecordResult = [RegisterRecord[], FieldPacket[]]
-
 
 export class RegisterRecord implements UserEntity {
     id?: string;
@@ -23,12 +22,21 @@ export class RegisterRecord implements UserEntity {
     async insertUser(): Promise<void> {
         const id = uuid();
 
-        await pool.execute("INSERT INTO `users` VALUES(:id, :name, :email, :password)", {
-            id,
-            userName: this.userName,
-            email: this.email,
-            password: this.password,
-        })
+
+        (async () => {
+            hash(this.password, 10, (err, hash) => {
+                if (err) {
+                    throw new Error;
+                }
+                pool.execute("INSERT INTO `users` VALUES(:id, :userName, :email, :password)", {
+                    id,
+                    userName: this.userName,
+                    email: this.email,
+                    password: hash,
+                })
+
+            })
+        })();
     }
 
     static async listAllUsers(): Promise<UserEntity[]> {

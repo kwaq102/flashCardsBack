@@ -15,9 +15,10 @@ export class LoginRecord implements LoginUserEntity {
         this.password = loginData.password;
     }
 
-    static async getOneUser(email: string): Promise<UserEntity | null> {
-        const [results] = await pool.execute("SELECT * FROM `users` WHERE `email` = :email", { email }) as UserRecordResults;
 
+    static async getOneUser(email: string): Promise<UserEntity | null> {
+
+        const [results] = await pool.execute("SELECT * FROM `users` WHERE `email` = :email", { email }) as UserRecordResults;
 
         return results.length === 0 ? null : results[0]
     }

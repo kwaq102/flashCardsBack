@@ -144,3 +144,6 @@ dist
 # End of https://www.toptal.com/developers/gitignore/api/node
 
 config/config.ts
+
+utils/constants.ts
+utils/cipher.ts
