@@ -2,11 +2,9 @@ import { pool } from "../utils/db";
 import { FieldPacket } from "mysql2";
 import { v4 as uuid } from 'uuid'
 
-
 type WordRecordResult = [WordRecord[], FieldPacket[]]
 
 export class WordRecord {
-
     id: string;
     title: string;
     description: string;
@@ -62,7 +60,6 @@ export class WordRecord {
             title: this.title,
             description: this.description,
             notes: this.notes,
-            // userId
         })
     }
 }

@@ -1,57 +1,37 @@
 import { Router } from "express";
-import { WordRecord } from "../records/words.record";
+import { UserRecord } from "../records/user.record";
 import { ValidationError } from "../utils/errors";
+import { compare } from "bcrypt";
 
 export const homeRouter = Router()
     .get('/', async (req, res) => {
-
-        res.send('witaj na strinie głównej')
-
-    })
-    .get('/data/search/:id', async (req, res) => {
-        const wordsList = await WordRecord.listAll(req.params.id);
-        res.json(wordsList)
+        res.send('witaj na stronie głównej')
     })
 
-    .delete('/data/remove/:id', async (req, res) => {
-        const word = await WordRecord.getOne(req.params.id);
-        await word.delete();
-        console.log('usunięto ')
-        res.end();
-    })
+    .patch('/user/:id', async (req, res) => {
+        console.log(req.body)
 
-    .post('/data/add/:id', async (req, res) => {
-        const userId = req.params.id;
+        const user = await UserRecord.getOneUser(req.params.id)
 
-        const obj = {
-            ...req.body,
+        if (!user) {
+            throw new ValidationError('Użytkownik nie został odnaleziony.')
         }
 
-        console.log(obj)
+        await compare(req.body.oldPassword, user.password, (err, result) => {
+            if (result) {
 
-        const word = new WordRecord(obj as WordRecord);
-        await word.addWord(userId);
+                user.updateUserPassword(req.params.id, req.body.newPassword)
 
-        console.log('dodano')
-        res.end();
-    })
+                console.log('Hasło zostało zmienione')
+                res.end();
 
-    .patch('/data/search/:id', async (req, res) => {
-        const { body } = req;
+            } else {
+                console.log('err')
+                res.end();
+                // res.json({ "error": true })
+            }
+        })
 
-        const word = await WordRecord.getOne(body.id);
 
-        if (!word) {
-            throw new ValidationError('Słowo nie zostało znalezione.')
-        }
 
-        word.title = body.title;
-        word.description = body.description;
-        word.notes = body.notes;
-
-        await word.update(body.id)
-
-        console.log('Edytowano')
-
-        res.json(word)
     })

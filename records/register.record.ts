@@ -22,7 +22,6 @@ export class RegisterRecord implements UserEntity {
     async insertUser(): Promise<void> {
         const id = uuid();
 
-
         (async () => {
             hash(this.password, 10, (err, hash) => {
                 if (err) {
@@ -44,4 +43,6 @@ export class RegisterRecord implements UserEntity {
 
         return results.map(obj => new RegisterRecord(obj))
     }
+
+
 }

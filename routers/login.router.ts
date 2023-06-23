@@ -15,7 +15,14 @@ export const loginRouter = Router()
         console.log(req.body.password)
         console.log(user.password)
 
+
         const passFromFront = req.body.password;
+
+        if (passFromFront === '') {
+            res.json(user);
+            return
+        }
+
 
         compare(passFromFront, user.password, (err, result) => {
             if (result) {
@@ -25,6 +32,4 @@ export const loginRouter = Router()
                 res.json({ "error": true })
             }
         })
-
-
     })
