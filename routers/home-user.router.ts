@@ -9,8 +9,6 @@ export const homeRouter = Router()
     })
 
     .patch('/user/:id', async (req, res) => {
-        console.log(req.body)
-
         const user = await UserRecord.getOneUser(req.params.id)
 
         if (!user) {
@@ -19,19 +17,15 @@ export const homeRouter = Router()
 
         await compare(req.body.oldPassword, user.password, (err, result) => {
             if (result) {
-
                 user.updateUserPassword(req.params.id, req.body.newPassword)
 
                 console.log('Hasło zostało zmienione')
+                res.json({ "error": false })
                 res.end();
-
             } else {
-                console.log('err')
+                new ValidationError('Stare haslo jest nieprawidłowe')
+                res.json({ "error": true })
                 res.end();
-                // res.json({ "error": true })
             }
         })
-
-
-
     })

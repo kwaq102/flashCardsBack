@@ -23,12 +23,9 @@ export const wordRouter = Router()
             ...req.body,
         }
 
-        console.log(obj)
-
         const word = new WordRecord(obj as WordRecord);
         await word.addWord(userId);
 
-        console.log('dodano')
         res.end();
     })
 
